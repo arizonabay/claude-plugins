@@ -1,0 +1,10 @@
+{
+  "name": "issue-planner",
+  "version": "0.1.0",
+  "description": "Transform problem descriptions into well-scoped, detailed GitHub issues through guided planning",
+  "author": {
+    "name": "arizonabay",
+    "email": "plugins@arizonabay.dev"
+  },
+  "keywords": ["github", "issues", "planning", "scoping", "workflow"]
+}
