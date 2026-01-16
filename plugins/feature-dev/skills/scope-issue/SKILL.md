@@ -1,7 +1,7 @@
 ---
-name: issue-scoping
-description: This skill should be used when the user asks to "plan this work", "scope this feature", "create an issue for", "write an issue", "define the requirements", "break down this task", "what should the ticket include", or discusses work planning and issue definition. Provides methodology for transforming vague problems into well-defined, actionable GitHub issues.
-version: 0.1.0
+name: scope-issue
+description: This skill should be used when the user asks to "scope this problem", "define the issue", "write a bug report", "create an issue for", "what should the ticket include", "describe this problem", or discusses issue creation and problem definition. Provides methodology for transforming vague problems into well-defined, actionable issues.
+version: 1.0.0
 ---
 
 # Issue Scoping Methodology
@@ -108,106 +108,6 @@ The opening section should answer: "Why does this issue exist?"
 **Context:** [Background information, how this was discovered]
 ```
 
-### Proposed Solution
-
-After the problem is clear, outline the recommended approach.
-
-**Template:**
-```markdown
-## Proposed Solution
-
-[High-level description of the approach]
-
-### Approach Details
-
-[More specific implementation notes]
-
-### Alternatives Considered
-
-- **Option A**: [Description] - [Why not chosen]
-- **Option B**: [Description] - [Why not chosen]
-```
-
-### Implementation Steps
-
-Break work into concrete, actionable tasks. Each step should be completable independently when possible.
-
-**Guidelines:**
-- Number steps sequentially
-- Keep steps small enough to complete in a single session
-- Note dependencies between steps
-- Include testing and documentation steps
-
-**Example:**
-```markdown
-## Implementation Steps
-
-1. Add CSV generation utility to `lib/exporters/`
-2. Create export endpoint in reports controller
-3. Add "Export CSV" button to dashboard UI
-4. Write unit tests for CSV generation
-5. Add E2E test for export flow
-6. Update API documentation
-```
-
-### Acceptance Criteria
-
-Define verifiable conditions for completion.
-
-**Format:**
-```markdown
-## Acceptance Criteria
-
-- [ ] User can click "Export CSV" from any dashboard view
-- [ ] Exported file contains all visible columns
-- [ ] Large exports (>10k rows) complete within 30 seconds
-- [ ] Export respects current filters and date range
-```
-
-### Dependencies and Related Work
-
-Surface connections to other issues and external dependencies.
-
-```markdown
-## Dependencies
-
-- Requires #123 (new data model) to be merged first
-- Blocked by vendor API upgrade (external)
-
-## Related Issues
-
-- Related to #456 (PDF export feature)
-- May resolve #789 (export timeout complaints)
-```
-
-## Labeling Strategy
-
-Apply labels that aid filtering and prioritization.
-
-### Type Labels
-
-Categorize what kind of work this is:
-- `bug` - Something is broken
-- `feature` - New functionality
-- `enhancement` - Improvement to existing feature
-- `chore` - Maintenance, refactoring, dependencies
-- `docs` - Documentation changes
-
-### Priority Labels
-
-Indicate urgency:
-- `critical` - Blocking production, immediate attention
-- `high` - Important, should be addressed soon
-- `medium` - Normal priority
-- `low` - Nice to have, when time permits
-
-### Area Labels
-
-Identify which part of the system:
-- Component names (`frontend`, `backend`, `api`)
-- Feature areas (`auth`, `billing`, `dashboard`)
-- Technical concerns (`security`, `performance`, `accessibility`)
-
 ## Anti-Patterns to Avoid
 
 ### Scope Creep Indicators
@@ -223,9 +123,9 @@ Watch for these warning signs:
 ### Vague Requirements
 
 Avoid ambiguous language:
-- "Make it better" → "Reduce load time from 5s to under 2s"
-- "Improve UX" → "Add loading indicators to async operations"
-- "Fix the bug" → "Handle null user case in checkout flow"
+- "Make it better" -> "Reduce load time from 5s to under 2s"
+- "Improve UX" -> "Add loading indicators to async operations"
+- "Fix the bug" -> "Handle null user case in checkout flow"
 
 ### Missing Context
 
@@ -233,31 +133,6 @@ Issues without context become confusing later:
 - Always include "why" not just "what"
 - Link to relevant discussions, designs, or documentation
 - Note who requested this and when
-
-### Over-Specification
-
-Don't prescribe implementation details unnecessarily:
-- Describe the desired outcome, not every code change
-- Allow flexibility for the implementer
-- Focus on "what" and "why", be lighter on "how"
-
-## Working with Codebase Context
-
-When planning issues for existing codebases, consider leveraging code analysis:
-
-### When Code Analysis Helps
-
-- Understanding existing patterns before proposing changes
-- Identifying affected areas and dependencies
-- Finding similar implementations to reference
-- Estimating complexity based on current architecture
-
-### When to Skip Code Analysis
-
-- New projects with no existing codebase
-- Non-technical issues (process, documentation)
-- Issues where requirements are already clear
-- When time is more valuable than additional context
 
 ## Issue Size Guidelines
 
@@ -285,6 +160,32 @@ Combine issues that:
 - Would create PR noise
 - Have no standalone value
 
+## Labeling Strategy
+
+### Type Labels
+
+Categorize what kind of work this is:
+- `bug` - Something is broken
+- `feature` - New functionality
+- `enhancement` - Improvement to existing feature
+- `chore` - Maintenance, refactoring, dependencies
+- `docs` - Documentation changes
+
+### Priority Labels
+
+Indicate urgency:
+- `critical` - Blocking production, immediate attention
+- `high` - Important, should be addressed soon
+- `medium` - Normal priority
+- `low` - Nice to have, when time permits
+
+### Area Labels
+
+Identify which part of the system:
+- Component names (`frontend`, `backend`, `api`)
+- Feature areas (`auth`, `billing`, `dashboard`)
+- Technical concerns (`security`, `performance`, `accessibility`)
+
 ## Quick Reference
 
 ### Issue Template
@@ -295,16 +196,6 @@ Combine issues that:
 [What's wrong and why it matters]
 
 **Impact:** [Severity and who is affected]
-
-## Proposed Solution
-
-[Recommended approach]
-
-## Implementation Steps
-
-1. [Step one]
-2. [Step two]
-3. [Step three]
 
 ## Acceptance Criteria
 
@@ -321,6 +212,5 @@ Combine issues that:
 - [ ] Problem is clearly stated with impact
 - [ ] Scope boundaries are defined
 - [ ] Acceptance criteria are verifiable
-- [ ] Steps are actionable and sized appropriately
 - [ ] Labels reflect type, priority, and area
 - [ ] Related issues are linked

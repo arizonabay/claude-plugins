@@ -16,7 +16,9 @@ Building features requires more than just writing code. You need to:
 
 This plugin embeds these practices into a structured workflow that runs automatically when you use the `/feature-dev` command.
 
-## Command: `/feature-dev`
+## Commands
+
+### `/feature-dev`
 
 Launches a guided feature development workflow with 7 distinct phases.
 
@@ -31,6 +33,51 @@ Or simply:
 ```
 
 The command will guide you through the entire process interactively.
+
+### `/feature-dev:create-issue`
+
+Create a well-scoped GitHub issue from a problem description with optional codebase analysis.
+
+**Usage:**
+```bash
+/feature-dev:create-issue Users can't export large reports without timeout
+```
+
+**Workflow (4 phases):**
+1. **Problem Understanding** - Clarifying questions about behavior, impact, scope
+2. **Codebase Analysis (Optional)** - Launch code-explorer for technical context
+3. **Issue Composition** - Title, problem statement, solution, acceptance criteria
+4. **Create Issue** - Preview, approve, and create via `gh issue create`
+
+**Configuration:** Reads `.claude/feature-dev.local.md` for available labels, milestones, and projects.
+
+### `/feature-dev:plan`
+
+Create a comprehensive implementation plan with architecture analysis, saved to `docs/plans/`.
+
+**Usage:**
+```bash
+# Link to existing issue
+/feature-dev:plan #42
+
+# Or standalone feature description
+/feature-dev:plan Add real-time notifications with WebSocket support
+```
+
+**Workflow (6 phases):**
+1. **Requirements** - Parse issue reference or gather feature requirements
+2. **Codebase Exploration** - Launch 2-3 code-explorer agents in parallel
+3. **Architecture Design** - Launch 2-3 code-architect agents with different approaches
+4. **Alternatives Documentation** - Capture all approaches with trade-offs
+5. **Implementation Planning** - Concrete steps and verification plan
+6. **Document Generation** - Write plan to `docs/plans/<slug>.md`
+
+**Output:** Markdown file containing:
+- Motivation and problem context
+- Alternatives considered with pros/cons
+- Chosen approach with justification
+- Detailed implementation plan with phases
+- Verification plan (automated tests, manual testing, acceptance criteria)
 
 ## The 7-Phase Workflow
 
@@ -312,6 +359,42 @@ Suggested next steps:
 - Specific fixes with file:line references
 - Project guideline references
 
+## Skills
+
+### `scope-issue`
+
+**Purpose**: Provides methodology for problem description and issue scoping
+
+**Triggers when you ask to:**
+- "scope this problem"
+- "define the issue"
+- "create an issue for"
+- "write a bug report"
+
+**Provides guidance on:**
+- Core principles (problems before solutions, scope boundaries, measurable completion)
+- Discovery questions for bugs, features, and improvements
+- Issue structure (title, problem statement)
+- Labeling strategy
+- Anti-patterns to avoid
+
+### `scope-plan`
+
+**Purpose**: Provides methodology for solution exploration and planning documentation
+
+**Triggers when you ask to:**
+- "plan this implementation"
+- "design the solution"
+- "document the approach"
+- "explore alternatives"
+
+**Provides guidance on:**
+- Proposing and evaluating alternatives
+- Trade-off analysis
+- Plan document structure
+- Architecture decision documentation
+- Verification planning
+
 ## Usage Patterns
 
 ### Full workflow (recommended for new features):
@@ -336,6 +419,34 @@ Let the workflow guide you through all 7 phases.
 **Review code:**
 ```
 "Launch code-reviewer to check my recent changes"
+```
+
+## Configuration
+
+Create `.claude/feature-dev.local.md` to configure issue creation and planning:
+
+```yaml
+---
+# Labels available for issues
+labels:
+  type: [bug, feature, enhancement, chore, docs]
+  priority: [critical, high, medium, low]
+  area: [frontend, backend, api, infrastructure]
+
+# Milestones for issue assignment
+milestones: [v1.0, v1.1, backlog]
+
+# GitHub Projects
+projects: ["Project Board Name"]
+
+# Plan output directory (default: docs/plans)
+plan_output_dir: docs/plans
+---
+
+## Team Conventions
+
+Additional context for issue creation and planning.
+Describe preferred issue structure, team conventions, or architecture guidelines.
 ```
 
 ## Best Practices
