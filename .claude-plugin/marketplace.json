@@ -639,6 +639,26 @@
         "url": "https://github.com/coderabbitai/claude-plugin.git"
       },
       "homepage": "https://github.com/coderabbitai/claude-plugin.git"
+    },
+    {
+      "name": "sonatype-guide",
+      "description": "Sonatype Guide MCP server for software supply chain intelligence and dependency security. Analyze dependencies for vulnerabilities, get secure version recommendations, and check component quality metrics.",
+      "category": "security",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/sonatype/sonatype-guide-claude-plugin.git"
+      },
+      "homepage": "https://github.com/sonatype/sonatype-guide-claude-plugin.git"
+    },
+    {
+      "name": "firecrawl",
+      "description": "Web scraping and crawling powered by Firecrawl. Turn any website into clean, LLM-ready markdown or structured data. Scrape single pages, crawl entire sites, search the web, and extract structured information. Includes an AI agent for autonomous multi-source data gathering - just describe what you need and it finds, navigates, and extracts automatically.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/firecrawl/firecrawl-claude-plugin.git"
+      },
+      "homepage": "https://github.com/firecrawl/firecrawl-claude-plugin.git"
     }
   ]
 }
