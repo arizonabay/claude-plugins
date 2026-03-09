@@ -428,6 +428,17 @@
       "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-md-management"
     },
     {
+      "name": "skill-creator",
+      "description": "Create new skills, improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, or benchmark skill performance with variance analysis.",
+      "author": {
+        "name": "Anthropic",
+        "email": "support@anthropic.com"
+      },
+      "source": "./plugins/skill-creator",
+      "category": "development",
+      "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator"
+    },
+    {
       "name": "greptile",
       "description": "AI-powered codebase search and understanding. Query your repositories using natural language to find relevant code, understand dependencies, and get contextual answers about your codebase architecture.",
       "category": "development",
@@ -535,8 +546,11 @@
       "name": "slack",
       "description": "Slack workspace integration. Search messages, access channels, read threads, and stay connected with your team's communications while coding. Find relevant discussions and context quickly.",
       "category": "productivity",
-      "source": "./external_plugins/slack",
-      "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/slack"
+      "source": {
+        "source": "url",
+        "url": "https://github.com/slackapi/slack-mcp-plugin.git"
+      },
+      "homepage": "https://github.com/slackapi/slack-mcp-plugin/tree/main"
     },
     {
       "name": "vercel",
@@ -659,6 +673,27 @@
         "url": "https://github.com/firecrawl/firecrawl-claude-plugin.git"
       },
       "homepage": "https://github.com/firecrawl/firecrawl-claude-plugin.git"
+    },
+    {
+      "name": "qodo-skills",
+      "description": "Qodo Skills provides a curated library of reusable AI agent capabilities that extend Claude's functionality for software development workflows. Each skill is designed to integrate seamlessly into your development process, enabling tasks like code quality checks, automated testing, security scanning, and compliance validation. Skills operate across your entire SDLC—from IDE to CI/CD—ensuring consistent standards and catching issues early.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/qodo-ai/qodo-skills.git",
+        "sha": "623eb4ed4364d8111f9a9132a791d7497d814b6a"
+      },
+      "homepage": "https://github.com/qodo-ai/qodo-skills.git"
+    },
+    {
+      "name": "semgrep",
+      "description": "Semgrep catches security vulnerabilities in real-time and guides Claude to write secure code from the start.",
+      "category": "security",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/semgrep/mcp-marketplace.git"
+      },
+      "homepage": "https://github.com/semgrep/mcp-marketplace.git"
     }
   ]
 }
