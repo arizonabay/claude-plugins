@@ -15,3 +15,6 @@ jobs:
 
       - name: Validate marketplace.json
         run: bun .github/scripts/validate-marketplace.ts .claude-plugin/marketplace.json
+
+      - name: Check plugins sorted
+        run: bun .github/scripts/check-marketplace-sorted.ts

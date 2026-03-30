@@ -4,6 +4,10 @@ Connect a Telegram bot to your Claude Code with an MCP server.
 
 The MCP server logs into Telegram as a bot and provides tools to Claude to reply, react, or edit messages. When you message the bot, the server forwards the message to your Claude Code session.
 
+## Prerequisites
+
+- [Bun](https://bun.sh) — the MCP server runs on Bun. Install with `curl -fsSL https://bun.sh/install | bash`.
+
 ## Quick Setup
 > Default pairing flow for a single-user DM bot. See [ACCESS.md](./ACCESS.md) for groups and multi-user setups.
 
@@ -23,10 +27,7 @@ These are Claude Code commands — run `claude` to start a session first.
 Install the plugin:
 ```
 /plugin install telegram@claude-plugins-official
-/reload-plugins
 ```
-
-Check that `/telegram:configure` tab-completes. If not, restart your session.
 
 **3. Give the server the token.**
 
@@ -35,6 +36,8 @@ Check that `/telegram:configure` tab-completes. If not, restart your session.
 ```
 
 Writes `TELEGRAM_BOT_TOKEN=...` to `~/.claude/channels/telegram/.env`. You can also write that file by hand, or set the variable in your shell environment — shell takes precedence.
+
+> To run multiple bots on one machine (different tokens, separate allowlists), point `TELEGRAM_STATE_DIR` at a different directory per instance.
 
 **4. Relaunch with the channel flag.**
 
@@ -46,7 +49,7 @@ claude --channels plugin:telegram@claude-plugins-official
 
 **5. Pair.**
 
-DM your bot on Telegram — it replies with a 6-character pairing code. In your assistant session:
+With Claude Code running from the previous step, DM your bot on Telegram — it replies with a 6-character pairing code. If the bot doesn't respond, make sure your session is running with `--channels`. In your Claude Code session:
 
 ```
 /telegram:access pair <code>

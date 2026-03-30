@@ -4,6 +4,9 @@ Connect a Discord bot to your Claude Code with an MCP server.
 
 When the bot receives a message, the MCP server forwards it to Claude and provides tools to reply, react, and edit messages.
 
+## Prerequisites
+
+- [Bun](https://bun.sh) — the MCP server runs on Bun. Install with `curl -fsSL https://bun.sh/install | bash`.
 
 ## Quick Setup
 > Default pairing flow for a single-user DM bot. See [ACCESS.md](./ACCESS.md) for groups and multi-user setups.
@@ -44,10 +47,7 @@ These are Claude Code commands — run `claude` to start a session first.
 Install the plugin:
 ```
 /plugin install discord@claude-plugins-official
-/reload-plugins
 ```
-
-Check that `/discord:configure` tab-completes. If not, restart your session.
 
 **5. Give the server the token.**
 
@@ -56,6 +56,8 @@ Check that `/discord:configure` tab-completes. If not, restart your session.
 ```
 
 Writes `DISCORD_BOT_TOKEN=...` to `~/.claude/channels/discord/.env`. You can also write that file by hand, or set the variable in your shell environment — shell takes precedence.
+
+> To run multiple bots on one machine (different tokens, separate allowlists), point `DISCORD_STATE_DIR` at a different directory per instance.
 
 **6. Relaunch with the channel flag.**
 
@@ -67,7 +69,7 @@ claude --channels plugin:discord@claude-plugins-official
 
 **7. Pair.**
 
-DM your bot on Discord — it replies with a pairing code. In your assistant session:
+With Claude Code running from the previous step, DM your bot on Discord — it replies with a pairing code. If the bot doesn't respond, make sure your session is running with `--channels`. In your Claude Code session:
 
 ```
 /discord:access pair <code>
