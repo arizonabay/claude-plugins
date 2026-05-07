@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    {
+      "name": "toolbelt",
+      "description": "Developer productivity toolkit with steve/abel commands for complete issue-to-PR workflows",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/arizonabay/toolbelt.git"
+      },
+      "homepage": "https://github.com/arizonabay/toolbelt"
+    }
+  ]
+}
