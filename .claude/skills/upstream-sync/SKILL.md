@@ -154,4 +154,6 @@ Sync with upstream: <N> new commits bringing <brief summary of notable changes>.
 ### 7. Post-merge
 
 - Push to origin when the user is ready
-- If there's an open "Upstream Changes Detected" GitHub issue, close it with `gh`
+- The `upstream-sync-check` workflow runs on push to `main` and auto-closes
+  any open "Upstream Changes Detected" issues once drift is gone — no manual
+  `gh issue close` needed
