@@ -68,7 +68,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
-              creator: 'app/github-actions',
+              creator: 'github-actions[bot]',
               per_page: 100,
             });
             const open = existing.find(i => i.title === title);
@@ -102,7 +102,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
-              creator: 'app/github-actions',
+              creator: 'github-actions[bot]',
               per_page: 100,
             });
             const open = existing.filter(i => i.title === title);
