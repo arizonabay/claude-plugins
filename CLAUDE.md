@@ -94,6 +94,18 @@ Types: stdio (local), SSE (hosted/OAuth), HTTP (REST), WebSocket (real-time).
 
 ## Development
 
+### Adding a Fork-Specific Plugin
+
+arizonabay-added marketplace entries live in `.claude-plugin/fork-additions.json`
+— never edit `marketplace.json` directly. To add a plugin:
+
+1. Append the entry to `.claude-plugin/fork-additions.json`
+2. Run `python3 .claude/skills/upstream-sync/scripts/merge_marketplace.py`
+3. Commit both files
+
+`marketplace.json` is regenerated on every upstream sync from
+`upstream/main` + the manifest, so any direct edits there are overwritten.
+
 ### Testing a Plugin Locally
 ```bash
 cc --plugin-dir /path/to/plugin-name

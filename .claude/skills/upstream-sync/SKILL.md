@@ -27,8 +27,9 @@ This fork exists so arizonabay can extend the plugin ecosystem with our own plug
 customizations, and tooling while staying current with Anthropic's upstream. Our
 fork-specific additions include:
 
-- **Custom marketplace.json entries** — plugins we've added (e.g., `toolbelt`). The
-  merge script identifies these automatically by diffing against upstream.
+- **Fork-specific marketplace entries** in `.claude-plugin/fork-additions.json`
+  (e.g., `toolbelt`). The merge script overlays these onto upstream's
+  marketplace.json each sync.
 - **This skill** (`.claude/skills/upstream-sync/`)
 - **GitHub Actions** (`.github/workflows/upstream-sync-check.yml`) that creates an
   issue when upstream has new commits
@@ -87,39 +88,34 @@ git diff --name-only --diff-filter=U
   array. Do NOT manually edit conflict markers — that's how duplicates happen.
 - **Other file conflicts**: resolve those normally with standard git tools.
 
-### 4. Resolve marketplace.json conflicts
+### 4. Regenerate marketplace.json
 
-This step only applies when marketplace.json has conflicts. The bundled script
-handles this deterministically — it treats upstream as the authoritative base and
-overlays our fork-specific entries on top.
-
-Run from the repo root:
+Whether or not the merge produced a conflict in `marketplace.json`, regenerate
+it from the deterministic sources. The script reads `upstream/main`'s copy
+directly from the git ref and overlays our manifest — conflict markers in the
+working tree are ignored.
 
 ```bash
 python3 .claude/skills/upstream-sync/scripts/merge_marketplace.py
 ```
 
-The script:
-1. Reads upstream's marketplace.json as the clean base
-2. Reads our pre-merge version
-3. Identifies entries unique to our fork
-4. Deduplicates — prevents the duplicate-entry problem from prior bad merges
-5. Merges upstream + fork entries, sorted alphabetically
-6. Validates (no duplicates, valid JSON) and stages the result
+The script reports:
+- Upstream plugin count
+- Manifest plugin count + each entry it's adding
+- Final merged count
 
-**Review the output.** The script reports which fork-specific entries it's keeping.
-If any look unfamiliar or stale, investigate:
+It writes `.claude-plugin/marketplace.json` and runs `git add`. If a duplicate
+name appears in both upstream and the manifest, the script aborts — that means
+upstream just adopted a plugin name we were also using; remove it from
+`.claude-plugin/fork-additions.json` and re-run.
 
-```bash
-# Check if upstream explicitly removed an entry
-git log upstream/main --oneline -p -S '"name": "<plugin-name>"' -- '.claude-plugin/marketplace.json'
-```
+#### Adding a fork-specific plugin
 
-To exclude a stale entry:
+To add a new arizonabay plugin to the marketplace:
 
-```bash
-python3 .claude/skills/upstream-sync/scripts/merge_marketplace.py --exclude stale-plugin-name
-```
+1. Append the entry to `.claude-plugin/fork-additions.json`
+2. Run `python3 .claude/skills/upstream-sync/scripts/merge_marketplace.py`
+3. Commit both files
 
 ### 5. Verify
 
@@ -158,4 +154,6 @@ Sync with upstream: <N> new commits bringing <brief summary of notable changes>.
 ### 7. Post-merge
 
 - Push to origin when the user is ready
-- If there's an open "Upstream Changes Detected" GitHub issue, close it with `gh`
+- The `upstream-sync-check` workflow runs on push to `main` and auto-closes
+  any open "Upstream Changes Detected" issues once drift is gone — no manual
+  `gh issue close` needed
