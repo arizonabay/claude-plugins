@@ -4143,7 +4143,8 @@
       "category": "development",
       "source": {
         "source": "url",
-        "url": "https://github.com/arizonabay/toolbelt.git"
+        "url": "https://github.com/arizonabay/toolbelt.git",
+        "sha": "40be32d01a9a5a68d926251e788045ed9c1c9e55"
       },
       "homepage": "https://github.com/arizonabay/toolbelt"
     }
