@@ -31,7 +31,9 @@ fork-specific additions include:
   merge script identifies these automatically by diffing against upstream.
 - **This skill** (`.claude/skills/upstream-sync/`)
 - **GitHub Actions** (`.github/workflows/upstream-sync-check.yml`) that creates an
-  issue when upstream has new commits
+  issue when upstream has new commits. It is switched off in GitHub (along with
+  upstream's `bump-plugin-shas.yml`) because nobody uses this fork day to day;
+  syncs are run by hand every now and again.
 - **Any other plugins, skills, or config** we add over time
 
 These are all preserved during sync. The merge brings in upstream's changes, and
@@ -104,11 +106,21 @@ The script:
 2. Reads our pre-merge version
 3. Identifies entries unique to our fork
 4. Deduplicates — prevents the duplicate-entry problem from prior bad merges
-5. Merges upstream + fork entries, sorted alphabetically
+5. Keeps upstream's entries in upstream's order and appends fork entries
 6. Validates (no duplicates, valid JSON) and stages the result
 
 **Review the output.** The script reports which fork-specific entries it's keeping.
-If any look unfamiliar or stale, investigate:
+It treats anything in our list but not upstream's as ours, so plugins that upstream
+has removed or renamed since the last sync show up here too. The longer the gap
+between syncs, the more of these there are. To tell them apart, check whether each
+entry was in upstream's list at the last sync:
+
+```bash
+git show $(git merge-base HEAD upstream/main):.claude-plugin/marketplace.json | grep -c '"name": "<plugin-name>"'
+```
+
+A count above zero means the entry came from upstream and was later removed: exclude
+it. Otherwise, investigate:
 
 ```bash
 # Check if upstream explicitly removed an entry

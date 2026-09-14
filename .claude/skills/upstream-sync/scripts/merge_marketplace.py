@@ -73,9 +73,9 @@ def main():
     if exclude:
         print(f"Excluded:       {', '.join(sorted(exclude))}")
 
-    # Build merged result: upstream base + fork entries, sorted
+    # Build merged result: upstream base in upstream's order, fork entries
+    # appended, so the file differs from upstream only by our additions
     all_plugins = upstream["plugins"] + fork_entries
-    all_plugins.sort(key=lambda p: p["name"].lower())
 
     data = {k: v for k, v in upstream.items() if k != "plugins"}
     data["plugins"] = all_plugins
@@ -94,7 +94,7 @@ def main():
         print(f"\n[dry-run] Would write to {MARKETPLACE_PATH}")
     else:
         with open(MARKETPLACE_PATH, "w") as f:
-            json.dump(data, f, indent=2)
+            json.dump(data, f, indent=2, ensure_ascii=False)
             f.write("\n")
 
         subprocess.run(["git", "add", MARKETPLACE_PATH], check=True)
