@@ -28,7 +28,11 @@ customizations, and tooling while staying current with Anthropic's upstream. Our
 fork-specific additions include:
 
 - **Custom marketplace.json entries** — plugins we've added (e.g., `toolbelt`). The
-  merge script identifies these automatically by diffing against upstream.
+  merge script identifies these automatically by diffing against upstream. Upstream's
+  Validate Plugins check requires each one to pin a commit (`source.sha`); updating
+  toolbelt means bumping that pin by hand. Because toolbelt is a private repo, the
+  push that changes its pin fails the check's download step. Run Validate Plugins by
+  hand afterwards (`gh workflow run validate-plugins.yml`) to confirm main is clean.
 - **This skill** (`.claude/skills/upstream-sync/`)
 - **GitHub Actions** (`.github/workflows/upstream-sync-check.yml`) that creates an
   issue when upstream has new commits. It is switched off in GitHub (along with
